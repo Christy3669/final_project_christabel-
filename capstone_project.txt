@@ -1,0 +1,85 @@
+# final_assignment_christabel
+# Define card ranks and suits
+ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+
+# Define card values
+values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10, 'A': 11}
+
+# Function to create deck
+def create_deck():
+    deck = [{'rank': r, 'suit': s} for r in ranks for s in suits]
+    random.shuffle(deck)
+    return deck
+
+# Function to deal card
+def deal_card(deck):
+    return deck.pop()
+
+# Function to calculate hand value
+def calculate_hand_value(hand):
+    value = sum([values[card['rank']] for card in hand])
+    # Adjust for Ace value
+    for card in hand:
+        if card['rank'] == 'A' and value > 21:
+            value -= 10
+    return value
+
+# Function to display hand
+def display_hand(hand):
+    print(', '.join([f"{card['rank']} of {card['suit']}" for card in hand]))
+
+# Main game loop
+def play_game():
+    deck = create_deck()
+    player_hand = [deal_card(deck), deal_card(deck)]
+    dealer_hand = [deal_card(deck), deal_card(deck)]
+
+    print("Your hand:")
+    display_hand(player_hand)
+    print(f"Value: {calculate_hand_value(player_hand)}")
+
+    print("\nDealer's up card:")
+    display_hand([dealer_hand[0]])
+
+    # Player's turn
+    while True:
+        action = input("\nHit (H) or Stand (S)? ")
+        if action.upper() == 'H':
+            player_hand.append(deal_card(deck))
+            print("\nYour hand:")
+            display_hand(player_hand)
+            print(f"Value: {calculate_hand_value(player_hand)}")
+            if calculate_hand_value(player_hand) > 21:
+                print("\nYou bust! Dealer wins.")
+                return
+        elif action.upper() == 'S':
+            break
+
+    # Dealer's turn
+    print("\nDealer's hand:")
+    display_hand(dealer_hand)
+    print(f"Value: {calculate_hand_value(dealer_hand)}")
+    while calculate_hand_value(dealer_hand) < 17:
+        dealer_hand.append(deal_card(deck))
+        print("\nDealer's hand:")
+        display_hand(dealer_hand)
+        print(f"Value: {calculate_hand_value(dealer_hand)}")
+        if calculate_hand_value(dealer_hand) > 21:
+            print("\nDealer busts! You win.")
+            return
+
+    # Determine winner
+    player_value = calculate_hand_value(player_hand)
+    dealer_value = calculate_hand_value(dealer_hand)
+    if player_value > dealer_value:
+        print("\nYou win!")
+    elif player_value < dealer_value:
+        print("\nDealer wins.")
+    else:
+        print("\nPush.")
+
+play_game()
+
+
+

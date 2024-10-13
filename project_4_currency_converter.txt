@@ -1,0 +1,67 @@
+# final_assignment_christabel
+    def __init__(self):
+        # Fixed exchange rates (1 USD = ?)
+        self.exchange_rates = {
+            'USD': 1,
+            'EUR': 0.88,
+            'GBP': 0.76,
+            'INR': 74.83,
+            'AUD': 1.48,
+            'CAD': 1.31,
+            'JPY': 109.43,
+            'CNY': 6.47,
+        }
+
+    def convert_currency(self, from_currency, to_currency, amount):
+        if from_currency != 'USD':
+            amount = amount / self.exchange_rates[from_currency]
+        
+        converted_amount = amount * self.exchange_rates[to_currency]
+        return converted_amount
+
+    def display_exchange_rates(self):
+        print("Exchange Rates (1 USD = ?):")
+        for currency, rate in self.exchange_rates.items():
+            print(f"{currency}: {rate}")
+
+def main():
+    converter = CurrencyConverter()
+    
+    while True:
+        print("\nCurrency Converter")
+        print("1. Convert Currency")
+        print("2. Display Exchange Rates")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
+        
+        if choice == "1":
+            from_currency = input("From currency (USD, EUR, GBP, INR, AUD, CAD, JPY, CNY): ").upper()
+            to_currency = input("To currency (USD, EUR, GBP, INR, AUD, CAD, JPY, CNY): ").upper()
+            amount = float(input("Enter amount: "))
+            
+            if from_currency in converter.exchange_rates and to_currency in converter.exchange_rates:
+                converted_amount = converter.convert_currency(from_currency, to_currency, amount)
+                print(f"{amount} {from_currency} = {converted_amount:.2f} {to_currency}")
+            else:
+                print("Invalid currency. Please try again.")
+        
+        elif choice == "2":
+            converter.display_exchange_rates()
+        
+        elif choice == "3":
+            print("Exiting program. Goodbye!")
+            break
+        
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+# final_assignment_christabel
+def get_computer_choice():
+    choices = ['Rock', 'Paper', 'Scissors']
+    return random.choice(choices)
+
+def determine_winner(user_choice, computer_choice):
+    match (user_choice, computer_choice):
+        case ('Rock', 'Scissors') | ('Paper', 'Rock') | ('Scissors', 'Paper'):
+            return "You win!"
+        case ('Rock', 'Paper') | ('Paper', 'Scissors') | ('Scissors', 'Rock'):
+            return "Computer wins!"
+        case _:
+            return "It's a tie!"
+
+def play_game():
+    while True:
+        user_choice = input("Enter Rock, Paper, or Scissors (or 'q' to quit): ").capitalize()
+        if user_choice == 'Q':
+            break
+        if user_choice not in ['Rock', 'Paper', 'Scissors']:
+            print("Invalid choice. Please try again.")
+            continue
+        computer_choice = get_computer_choice()
+        print(f"\nYou chose: {user_choice}")
+        print(f"Computer chose: {computer_choice}\n")
+        print(determine_winner(user_choice, computer_choice))
+
+play_game()
+``]
+
+Here's how the program works:
+
+1.  The `get_computer_choice` function returns the computer's random choice.
+2.  The `determine_winner` function uses a `match` statement to determine the winner based on the game's rules.
+3.  The `play_game` function handles user input, validates choices, and displays the game's outcome.
+
+Run the program to play Rock, Paper, Scissors!
+
+            

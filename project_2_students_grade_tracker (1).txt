@@ -1,0 +1,77 @@
+# final_assignment_christabel
+class StudentGradeTracker:
+    def __init__(self):
+        self.student_grades = {}
+
+    def add_student(self):
+        name = input("Enter student's name: ")
+        grades = input("Enter grades (space-separated): ").split()
+        grades = [float(grade) for grade in grades]
+        self.student_grades[name] = grades
+        print(f"Student {name} added successfully.")
+
+    def update_grades(self):
+        name = input("Enter student's name: ")
+        if name in self.student_grades:
+            grades = input("Enter new grades (space-separated): ").split()
+            grades = [float(grade) for grade in grades]
+            self.student_grades[name] = self.student_grades[name] + grades
+            print(f"Grades for {name} updated successfully.")
+        else:
+            print(f"Student {name} not found.")
+
+    def display_grades(self):
+        name = input("Enter student's name: ")
+        if name in self.student_grades:
+            print(f"Grades for {name}: {self.student_grades[name]}")
+        else:
+            print(f"Student {name} not found.")
+
+    def calculate_average_grade(self):
+        name = input("Enter student's name: ")
+        if name in self.student_grades:
+            average_grade = sum(self.student_grades[name]) / len(self.student_grades[name])
+            print(f"Average grade for {name}: {average_grade:.2f}")
+        else:
+            print(f"Student {name} not found.")
+
+    def display_all_students(self):
+        print("All Students:")
+        for name, grades in self.student_grades.items():
+            print(f"{name}: {grades}")
+
+def main():
+    tracker = StudentGradeTracker()
+    while True:
+        print("\nStudent Grade Tracker")
+        print("1. Add Student")
+        print("2. Update Grades")
+        print("3. Display Grades")
+        print("4. Calculate Average Grade")
+        print("5. Display All Students")
+        print("6. Exit")
+        choice = input("Enter your choice: ")
+        
+        if choice == "1":
+            tracker.add_student()
+        elif choice == "2":
+            tracker.update_grades()
+        elif choice == "3":
+            tracker.display_grades()
+        elif choice == "4":
+            tracker.calculate_average_grade()
+        elif choice == "5":
+            tracker.display_all_students()
+        elif choice == "6":
+            print("Exiting program. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+``]
+
+
+
+
